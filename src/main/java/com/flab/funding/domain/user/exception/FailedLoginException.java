@@ -1,4 +1,4 @@
-package com.flab.funding.global.exception.user;
+package com.flab.funding.domain.user.exception;
 
 public class FailedLoginException extends RuntimeException{
     public FailedLoginException(String s) {
