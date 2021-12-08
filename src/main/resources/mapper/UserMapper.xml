@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flab.funding.domain.user.dao.UserMapper">
+
+    <select id="insert" parameterType="com.flab.funding.domain.user.dto.UserDto">
+        INSERT INTO USER(id, password, type, name, phone)
+        VALUES(#{id}, #{password}, #{type}, #{name}, #{phone})
+    </select>
+
+    <select id="delete" parameterType="String">
+        DELETE FROM USER WHERE id = #{id}
+    </select>
+
+    <select id="selectById" parameterType="String" resultType="com.flab.funding.domain.user.dto.UserDto">
+        SELECT * FROM USER WHERE id = #{id}
+    </select>
+
+</mapper>
