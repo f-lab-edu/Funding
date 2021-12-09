@@ -4,6 +4,7 @@ import com.flab.funding.domain.user.dao.UserMapper;
 import com.flab.funding.domain.user.dto.UserDto;
 import com.flab.funding.domain.user.exception.DuplicatedIdExistException;
 import com.flab.funding.domain.user.exception.UserDoesNotExistException;
+import com.flab.funding.utils.PasswordEncryptUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class UserService {
 
     public void join(UserDto userDto) {
         validateDuplicateId(userDto);
+        userDto.setPassword(PasswordEncryptUtil.encryptSHA256(userDto.getPassword()));
         userMapper.insert(userDto);
     }
 
