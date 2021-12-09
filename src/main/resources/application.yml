@@ -1,0 +1,24 @@
+spring:
+  h2:
+    console:
+      enabled: true  # H2 웹 콘솔을 사용하겠다는 의미
+      path: /h2-console  # 콘솔의 경로
+      schema: classpath:h2/schema.sql
+      data: classpath:h2/data.sql
+
+  datasource:
+    driver-class-name: org.h2.Driver  #h2 드라이버 설정
+    url: jdbc:h2:~/h2-console  #접속 URL
+    username: sa  # 사용자 이름 (로그인 시 사용)
+    password:   # 사용자 암호 (로그인 시 사용)
+
+mybatis:
+  configuration:
+    multiple-result-sets-enabled: false
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    jdbc-type-for-null: varchar
+    default-fetch-size: 500
+
+  mapper-locations: classpath:mapper/*.xml # mapper.xml 의 경로
+  type-handlers-package: com.flab.funding.domain.user.infrastructure  # mybatis 에서 enum 사용을 위한 typeHandler 경로

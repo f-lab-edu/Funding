@@ -3,16 +3,15 @@ package com.flab.funding.domain.user.infrastructure;
 import com.flab.funding.domain.user.entity.UserRole;
 import com.flab.funding.global.constant.SessionConstant;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
 
 @Component
+@RequiredArgsConstructor
 public class SessionAuthentication implements Authentication {
 
-    @Autowired
-    private HttpSession session;
+    private final HttpSession session;
 
     @Override
     public void saveLoginAuthInfo(String loginId, String loginName, UserRole userRole) {
@@ -20,6 +19,8 @@ public class SessionAuthentication implements Authentication {
         session.setAttribute(SessionConstant.SESSION_LOGIN_ID, loginId);
         session.setAttribute(SessionConstant.SESSION_NAME, loginName);
         session.setAttribute(SessionConstant.SESSION_ROLE, userRole);
+
+        System.out.println("Login Success");
     }
 
     @Override
