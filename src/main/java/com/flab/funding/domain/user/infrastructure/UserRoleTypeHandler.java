@@ -20,28 +20,20 @@ public class UserRoleTypeHandler implements TypeHandler<UserRole> {
     @Override
     public UserRole getResult(ResultSet resultSet, String s) throws SQLException {
         final var roleCode = resultSet.getInt(s);
-        return getRoleName(roleCode);
+        return UserRole.getRoleName(roleCode);
     }
 
     @Override
     public UserRole getResult(ResultSet resultSet, int i) throws SQLException {
         final var roleCode = resultSet.getInt(i);
-        return getRoleName(roleCode);
+        return UserRole.getRoleName(roleCode);
     }
 
     @Override
     public UserRole getResult(CallableStatement callableStatement, int i) throws SQLException {
         final var roleCode = callableStatement.getInt(i);
-        return getRoleName(roleCode);
+        return UserRole.getRoleName(roleCode);
     }
 
-    private UserRole getRoleName(int roleCode) {
 
-        for (UserRole userRole : UserRole.values()) {
-            if (userRole.getRoleCode() == roleCode)
-                return userRole;
-        }
-
-        return null;
-    }
 }

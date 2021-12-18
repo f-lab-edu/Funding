@@ -3,10 +3,12 @@ package com.flab.funding.domain.user.infrastructure;
 import com.flab.funding.domain.user.entity.UserRole;
 import com.flab.funding.global.constant.SessionConstant;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class SessionAuthentication implements Authentication {
@@ -20,7 +22,7 @@ public class SessionAuthentication implements Authentication {
         session.setAttribute(SessionConstant.SESSION_NAME, loginName);
         session.setAttribute(SessionConstant.SESSION_ROLE, userRole);
 
-        System.out.println("Login Success");
+        log.info("Login Success");
     }
 
     @Override
