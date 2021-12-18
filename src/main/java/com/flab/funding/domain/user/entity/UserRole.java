@@ -18,12 +18,7 @@ public enum UserRole {
 
     public static UserRole getRoleName(int roleCode) {
 
-        Arrays.stream(UserRole.values()).filter(x-> x.getRoleCode() == roleCode).findFirst().orElseThrow(() -> new WrongRoleCodeException());
-        for (UserRole userRole : UserRole.values()) {
-            if (userRole.getRoleCode() == roleCode)
-                return userRole;
-        }
-
-        return null;
+        return Arrays.stream(UserRole.values()).filter(x-> x.getRoleCode() == roleCode)
+                .findFirst().orElseThrow(() -> new WrongRoleCodeException());
     }
 }
