@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.jdbc.Sql;
 
-
 @MybatisTest
 //@SpringBootTest
 //@Sql({"classpath:/schema.sql", "classpath:/data.sql"})
