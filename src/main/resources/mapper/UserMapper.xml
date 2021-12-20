@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flab.funding.domain.user.repository.UserMapper">
+    <select id="selectByUserId" parameterType="String" resultType="com.flab.funding.domain.user.entity.User">
+        SELECT * FROM USERS WHERE USER_ID = #{loginId}
+    </select>
+</mapper>

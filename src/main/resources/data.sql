@@ -1,0 +1,2 @@
+INSERT INTO USERS (ID, USER_ID, PASSWORD, USER_NAME, EMAIL, PHONE, SI, GU, DONG, ADDRESS, USER_ROLE)
+VALUES (1, 'testId', '12345678', '홍길동', 'test@google.com', '01012341234', '서울시', '강남구', '역삼동', '1번지', 1);
