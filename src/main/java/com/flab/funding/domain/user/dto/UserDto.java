@@ -1,14 +1,11 @@
 package com.flab.funding.domain.user.dto;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
-@Setter
+@AllArgsConstructor
 public class UserDto {
 
     @NonNull
@@ -20,4 +17,12 @@ public class UserDto {
     private String name;
     private String phone;
     private Date createdAt;
+
+    public UserDto(String id, String password, int type, String name, String phone) {
+        this.id = id;
+        this.password = password;
+        this.type = type;
+        this.name = name;
+        this.phone = phone;
+    }
 }

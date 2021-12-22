@@ -5,6 +5,7 @@ import com.flab.funding.domain.user.dto.UserDto;
 import com.flab.funding.domain.user.exception.DuplicatedIdExistException;
 import com.flab.funding.domain.user.exception.UserDoesNotExistException;
 import com.flab.funding.utils.PasswordEncryptUtil;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,8 +22,9 @@ public class UserService {
 
     public void join(UserDto userDto) {
         validateDuplicateId(userDto);
-        userDto.setPassword(PasswordEncryptUtil.encryptSHA256(userDto.getPassword()));
-        userMapper.insert(userDto);
+        String encryptedPassword = PasswordEncryptUtil.encryptSHA256(userDto.getPassword());
+        UserDto user = new UserDto(userDto.getId(), encryptedPassword, userDto.getType(), userDto.getName(), userDto.getPhone());
+        userMapper.insert(user);
     }
 
     private void validateDuplicateId(UserDto userDto) {
@@ -34,10 +36,7 @@ public class UserService {
 
     public UserDto findUserById(String id) {
         Optional<UserDto> user = Optional.ofNullable(userMapper.selectById(id));
-        if (user.isEmpty()) {
-            throw new UserDoesNotExistException("해당 id를 가진 유저가 존재하지 않습니다.");
-        }
-        return user.get();
+        return user.orElseThrow(() -> new UserDoesNotExistException("해당 id를 가진 유저가 존재하지 않습니다."));
 
     }
 
