@@ -1,5 +1,6 @@
 package com.flab.funding.domain.user.service;
 
+import com.flab.funding.domain.user.entity.LoginedUser;
 import com.flab.funding.domain.user.entity.User;
 import com.flab.funding.domain.user.infrastructure.Authentication;
 import com.flab.funding.domain.user.exception.NoUserExistException;
@@ -7,6 +8,8 @@ import com.flab.funding.domain.user.exception.WrongPasswordException;
 import com.flab.funding.domain.user.repository.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,4 +38,11 @@ public class UserLoginService implements LoginService {
 
         return true;
     }
+
+    @Override
+    public Optional<LoginedUser> getLoginInfo() {
+        return authentication.getLoginAuthInfo();
+    }
+
+
 }
