@@ -1,7 +1,8 @@
 package com.flab.funding.domain.user.service;
 
+import com.flab.funding.domain.user.exception.NoUserExistException;
+import com.flab.funding.domain.user.exception.WrongPasswordException;
 import com.flab.funding.domain.user.infrastructure.SessionAuthentication;
-import com.flab.funding.domain.user.exception.FailedLoginException;
 import com.flab.funding.domain.user.repository.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,6 +40,8 @@ public class SessionLoginServiceTest {
     @DisplayName("로그인 실패")
     @Test
     void loginFailTest() {
-        Assertions.assertThrows(FailedLoginException.class, () -> loginService.login("testId", "111"));
+        Assertions.assertThrows(WrongPasswordException.class, () -> loginService.login("testId", "111"));
+        Assertions.assertThrows(NoUserExistException.class, () -> loginService.login("testId!!", "111"));
+
     }
 }
