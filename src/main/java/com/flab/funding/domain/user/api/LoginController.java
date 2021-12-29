@@ -20,15 +20,17 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    // TODO: return type 변경
     @PostMapping("/login")
     public ResponseEntity<LoginedUser> login(@RequestBody LoginRequest loginReq) {
 
         loginService.login(loginReq.getLoginId(), loginReq.getLoginPw());
 
-        log.info("login controller finished");
-
         return ResponseEntity.of(loginService.getLoginInfo());
+    }
+
+    @PostMapping("/logout")
+    public void logout() {
+        loginService.logout();
     }
 
 }

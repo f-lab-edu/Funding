@@ -29,6 +29,11 @@ public class UserLoginService implements LoginService {
     }
 
     @Override
+    public void logout() {
+        authentication.invalidateLoginAuthInfo();
+    }
+
+    @Override
     public Optional<LoginedUser> getLoginInfo() {
         return authentication.getLoginAuthInfo();
     }

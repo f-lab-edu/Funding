@@ -14,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.Optional;
+
 @MybatisTest
 //@SpringBootTest
 //@Sql({"classpath:/schema.sql", "classpath:/data.sql"})
@@ -43,5 +45,12 @@ public class SessionLoginServiceTest {
         Assertions.assertThrows(WrongPasswordException.class, () -> loginService.login("testId", "111"));
         Assertions.assertThrows(NoUserExistException.class, () -> loginService.login("testId!!", "111"));
 
+    }
+
+    @DisplayName("로그아웃 성공")
+    @Test
+    void logoutSuccessTest() {
+        loginService.logout();
+        Assertions.assertEquals(loginService.getLoginInfo(), Optional.empty());
     }
 }

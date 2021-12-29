@@ -29,14 +29,19 @@ public class SessionAuthentication implements Authentication {
 
     @Override
     public boolean checkLoginAuthInfo() {
-        return session.getAttribute(SessionConstant.SESSION_LOGIN_ID) != null
-                && session.getAttribute(SessionConstant.SESSION_NAME) != null
-                && session.getAttribute(SessionConstant.SESSION_ROLE) != null;
+
+        try {
+            return session.getAttribute(SessionConstant.SESSION_LOGIN_ID) != null
+                    && session.getAttribute(SessionConstant.SESSION_NAME) != null
+                    && session.getAttribute(SessionConstant.SESSION_ROLE) != null;
+        } catch(IllegalStateException e) {
+            return false;
+        }
     }
 
     @Override
-    public boolean invalidateLoginAuthInfo() {
-        return false;
+    public void invalidateLoginAuthInfo() {
+        session.invalidate();
     }
 
     @Override

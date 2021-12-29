@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -47,15 +48,12 @@ public class LoginControllerTest {
                 .andDo(print());
     }
 
-    @DisplayName("로그인 요청 실패")
+    @DisplayName("로그아웃 요청 성공")
     @Test
-    void loginFailTest() {
-//        String jsonLoginReq = objectMapper.writeValueAsString(new LoginRequest("testId", "12345678"));
-//
-//        mockMvc.perform(post("/user/login")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(jsonLoginReq))
-//                .andExpect(status().isOk())
-//                .andDo(print());
+    void logoutTest() throws Exception {
+
+        mockMvc.perform(post("/user/logout"));
+        verify(loginService).logout();
+
     }
 }

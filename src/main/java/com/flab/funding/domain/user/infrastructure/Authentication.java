@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface Authentication {
     void saveLoginAuthInfo(String loginId, String loginName, UserRole userRole);
     boolean checkLoginAuthInfo();
-    boolean invalidateLoginAuthInfo();
+    void invalidateLoginAuthInfo();
     Optional<LoginedUser> getLoginAuthInfo();
 
 }
