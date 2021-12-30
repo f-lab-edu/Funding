@@ -1,8 +1,12 @@
 package com.flab.funding.domain.user.exception;
 
 
-public class WrongRoleCodeException extends RuntimeException{
+import com.flab.funding.common.model.BasicException;
+
+import static com.flab.funding.common.constant.ResponseCode.INTERNAL_SERVER_ERROR;
+
+public class WrongRoleCodeException extends BasicException {
     public WrongRoleCodeException() {
-        super("사용자 타입코드가 잘못되었습니다.");
+        super(INTERNAL_SERVER_ERROR);
     }
 }

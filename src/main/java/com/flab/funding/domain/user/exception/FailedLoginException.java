@@ -1,7 +1,10 @@
 package com.flab.funding.domain.user.exception;
 
-public class FailedLoginException extends RuntimeException{
-    public FailedLoginException(String s) {
-        super(s);
+import com.flab.funding.common.constant.ResponseCode;
+import com.flab.funding.common.model.BasicException;
+
+public class FailedLoginException extends BasicException {
+    public FailedLoginException(ResponseCode responseCode) {
+        super(responseCode);
     }
 }
