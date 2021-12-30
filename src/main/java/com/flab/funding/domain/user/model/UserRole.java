@@ -1,4 +1,4 @@
-package com.flab.funding.domain.user.entity;
+package com.flab.funding.domain.user.model;
 
 import com.flab.funding.domain.user.exception.WrongRoleCodeException;
 import lombok.Getter;
@@ -19,6 +19,6 @@ public enum UserRole {
     public static UserRole getRoleName(int roleCode) {
 
         return Arrays.stream(UserRole.values()).filter(x-> x.getRoleCode() == roleCode)
-                .findFirst().orElseThrow(() -> new WrongRoleCodeException());
+                .findFirst().orElseThrow(WrongRoleCodeException::new);
     }
 }

@@ -1,8 +1,8 @@
 package com.flab.funding.domain.user.infrastructure;
 
-import com.flab.funding.domain.user.entity.LoginedUser;
-import com.flab.funding.domain.user.entity.UserRole;
-import com.flab.funding.global.constant.SessionConstant;
+import com.flab.funding.domain.user.model.LoginedUser;
+import com.flab.funding.domain.user.model.UserRole;
+import com.flab.funding.common.constant.SessionConstant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

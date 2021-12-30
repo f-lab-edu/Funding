@@ -1,10 +1,9 @@
-package com.flab.funding.domain.user.api;
+package com.flab.funding.domain.user.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flab.funding.domain.user.entity.LoginRequest;
-import com.flab.funding.domain.user.entity.LoginedUser;
-import com.flab.funding.domain.user.entity.UserRole;
-import com.flab.funding.domain.user.infrastructure.SessionAuthentication;
+import com.flab.funding.domain.user.model.LoginRequest;
+import com.flab.funding.domain.user.model.LoginedUser;
+import com.flab.funding.domain.user.model.UserRole;
 import com.flab.funding.domain.user.service.UserLoginService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
