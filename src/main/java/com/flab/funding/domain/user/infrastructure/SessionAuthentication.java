@@ -1,5 +1,6 @@
 package com.flab.funding.domain.user.infrastructure;
 
+import com.flab.funding.domain.user.entity.LoginedUser;
 import com.flab.funding.domain.user.entity.UserRole;
 import com.flab.funding.global.constant.SessionConstant;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -27,16 +29,29 @@ public class SessionAuthentication implements Authentication {
 
     @Override
     public boolean checkLoginAuthInfo() {
-        return false;
+
+        try {
+            return session.getAttribute(SessionConstant.SESSION_LOGIN_ID) != null
+                    && session.getAttribute(SessionConstant.SESSION_NAME) != null
+                    && session.getAttribute(SessionConstant.SESSION_ROLE) != null;
+        } catch(IllegalStateException e) {
+            return false;
+        }
     }
 
     @Override
-    public boolean invalidateLoginAuthInfo() {
-        return false;
+    public void invalidateLoginAuthInfo() {
+        session.invalidate();
     }
 
     @Override
-    public boolean getLoginAuthInfo() {
-        return false;
+    public Optional<LoginedUser> getLoginAuthInfo() {
+        if(checkLoginAuthInfo()) {
+            return Optional.of(new LoginedUser((String) session.getAttribute(SessionConstant.SESSION_LOGIN_ID)
+                    , (String) session.getAttribute(SessionConstant.SESSION_NAME)
+                    , (UserRole) session.getAttribute(SessionConstant.SESSION_ROLE)));
+        }
+
+        return Optional.empty();
     }
 }

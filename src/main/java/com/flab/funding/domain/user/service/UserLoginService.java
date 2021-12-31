@@ -1,5 +1,6 @@
 package com.flab.funding.domain.user.service;
 
+import com.flab.funding.domain.user.entity.LoginedUser;
 import com.flab.funding.domain.user.entity.User;
 import com.flab.funding.domain.user.infrastructure.Authentication;
 import com.flab.funding.domain.user.exception.NoUserExistException;
@@ -7,6 +8,8 @@ import com.flab.funding.domain.user.exception.WrongPasswordException;
 import com.flab.funding.domain.user.repository.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,21 +21,33 @@ public class UserLoginService implements LoginService {
     @Override
     public boolean login(String loginId, String loginPw) {
 
-        User loginUser = userMapper.selectByUserId(loginId);
-
-        //TODO: EncryptPassword
-        String encryptedPw = loginUser.getPassword();
-
-        if(loginUser.getUserId().equals(loginId)
-                && encryptedPw.equals(loginPw)) {
-            authentication.saveLoginAuthInfo(loginId, loginUser.getUserName(), loginUser.getUserRole());
-        } else if ("testId".equals(loginId)
-                && ! "12345678".equals(loginPw)){
-            throw new WrongPasswordException();
-        } else {
-            throw new NoUserExistException();
-        }
+        Optional<User> loginUser = userMapper.selectByUserId(loginId);
+        loginUser.map( x -> checkLoginPw(loginPw, x))
+                .orElseThrow(NoUserExistException::new);
 
         return true;
     }
+
+    @Override
+    public void logout() {
+        authentication.invalidateLoginAuthInfo();
+    }
+
+    @Override
+    public Optional<LoginedUser> getLoginInfo() {
+        return authentication.getLoginAuthInfo();
+    }
+
+    private Optional<User> checkLoginPw(String loginPw, User loginUser) {
+
+        //TODO: Encrypt password
+        String encryptedPw = loginPw;
+
+        if (!encryptedPw.equals(loginUser.getPassword())) {
+            throw new WrongPasswordException();
+        }
+        return Optional.of(loginUser);
+    }
+
+
 }
