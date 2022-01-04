@@ -1,4 +1,4 @@
-package com.flab.funding.global.constant;
+package com.flab.funding.common.constant;
 
 public class SessionConstant {
     public static final String SESSION_LOGIN_ID = "LOGIN_ID";

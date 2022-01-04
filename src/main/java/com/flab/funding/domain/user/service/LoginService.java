@@ -1,6 +1,6 @@
 package com.flab.funding.domain.user.service;
 
-import com.flab.funding.domain.user.entity.LoginedUser;
+import com.flab.funding.domain.user.model.LoginedUser;
 
 import java.util.Optional;
 

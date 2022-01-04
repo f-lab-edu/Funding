@@ -1,7 +1,7 @@
 package com.flab.funding.domain.user.service;
 
-import com.flab.funding.domain.user.entity.LoginedUser;
-import com.flab.funding.domain.user.entity.User;
+import com.flab.funding.domain.user.model.LoginedUser;
+import com.flab.funding.domain.user.model.User;
 import com.flab.funding.domain.user.infrastructure.Authentication;
 import com.flab.funding.domain.user.exception.NoUserExistException;
 import com.flab.funding.domain.user.exception.WrongPasswordException;

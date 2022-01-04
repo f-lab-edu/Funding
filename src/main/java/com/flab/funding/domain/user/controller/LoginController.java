@@ -1,8 +1,7 @@
-package com.flab.funding.domain.user.api;
+package com.flab.funding.domain.user.controller;
 
-import com.flab.funding.domain.user.entity.LoginRequest;
-import com.flab.funding.domain.user.entity.LoginedUser;
-import com.flab.funding.domain.user.infrastructure.Authentication;
+import com.flab.funding.domain.user.model.LoginRequest;
+import com.flab.funding.domain.user.model.LoginedUser;
 import com.flab.funding.domain.user.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

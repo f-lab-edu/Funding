@@ -1,6 +1,6 @@
 package com.flab.funding.domain.user.repository;
 
-import com.flab.funding.domain.user.entity.User;
+import com.flab.funding.domain.user.model.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Optional;

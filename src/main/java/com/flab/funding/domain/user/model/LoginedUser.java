@@ -1,4 +1,4 @@
-package com.flab.funding.domain.user.entity;
+package com.flab.funding.domain.user.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

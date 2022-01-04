@@ -1,7 +1,9 @@
 package com.flab.funding.domain.user.exception;
 
+import static com.flab.funding.common.constant.ResponseCode.WRONG_PASSWORD;
+
 public class WrongPasswordException extends FailedLoginException{
     public WrongPasswordException() {
-        super("비밀번호가 틀렸습니다.");
+        super(WRONG_PASSWORD);
     }
 }

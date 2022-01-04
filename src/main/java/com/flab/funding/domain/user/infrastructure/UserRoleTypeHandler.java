@@ -1,6 +1,6 @@
 package com.flab.funding.domain.user.infrastructure;
 
-import com.flab.funding.domain.user.entity.UserRole;
+import com.flab.funding.domain.user.model.UserRole;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
 import org.apache.ibatis.type.TypeHandler;
