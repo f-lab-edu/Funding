@@ -3,13 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.flab.funding.domain.user.repository.FundingMapper">
+<mapper namespace="com.flab.funding.domain.funding.repository.FundingMapper">
 
     <insert id="insertFundingInfo" parameterType= "com.flab.funding.domain.funding.model.FundingInfo">
-        -- TODO
+        INSERT INTO FUNDING_INFO(ID, FUNDING_TITLE, FUNDING_DESC, START_DT, TARGET_DT, TARGET_PRICE, FUNDING_STATUS)
+        VALUES (#{id}, #{fundingTitle}, #{fundingDesc}, #{startDt}, #{targetDt}, #{targetPrice}, #{fundingStatus})
     </insert>
 
-    <insert id="insertOptionItem" parameterType= "com.flab.funding.domain.funding.model.ItemOption">
-        -- TODO
+    <insert id="insertOptionItem" >
+        INSERT INTO ITEM_OPTION(ID, FUNDING_ID, ITEM_NAME, ITEM_PRICE, QUANTITY)
+        VALUES
+        <foreach collection="optionList" item="item" separator=",">
+               (#{item.id}, #{fundingId}, #{item.itemName}, #{item.itemPrice}, #{item.quantity})
+        </foreach>
     </insert>
 </mapper>

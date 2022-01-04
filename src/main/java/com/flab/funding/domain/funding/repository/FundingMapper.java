@@ -10,6 +10,6 @@ import java.util.ArrayList;
 @Mapper
 public interface FundingMapper {
 
-    void insertFundingInfo(FundingInfo fundingInfo);
-    void insertOptionItem(@Param("id") Long id, @Param("optionList") ArrayList<ItemOption> optionList);
+    int insertFundingInfo(FundingInfo fundingInfo);
+    int insertOptionItem(@Param("fundingId") Long fundingId, @Param("optionList") ArrayList<ItemOption> optionList);
 }

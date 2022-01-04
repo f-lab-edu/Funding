@@ -3,12 +3,14 @@ package com.flab.funding.domain.funding.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Builder
 public class FundingInfo {
@@ -23,10 +25,10 @@ public class FundingInfo {
     private String fundingDesc;
 
     // 펀딩 시작날짜
-    private Date startDt;
+    private LocalDate startDt;
 
     // 펀딩 목표날짜
-    private Date targetDt;
+    private LocalDate targetDt;
 
     // 펀딩 목표금액
     private BigDecimal targetPrice;
