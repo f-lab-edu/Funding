@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public class FundingInfo {
     private LocalDate targetDt;
 
     // 펀딩 목표금액
-    private BigDecimal targetPrice;
+    private int targetPrice;
 
     // 펀딩 상품 선택 옵션리스트
     private ArrayList<ItemOption> optionList;

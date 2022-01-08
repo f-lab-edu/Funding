@@ -16,7 +16,7 @@ public class FundingController {
 
     private final SellerService sellerService;
 
-    @PostMapping("/addFunding")
+    @PostMapping("/")
     public ResponseEntity<FundingInfo> addFunding(@RequestBody FundingInfo fundingInfo) {
         return ResponseEntity.of(sellerService.addFunding(fundingInfo));
     }

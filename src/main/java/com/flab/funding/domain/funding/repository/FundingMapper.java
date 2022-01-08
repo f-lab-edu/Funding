@@ -5,11 +5,11 @@ import com.flab.funding.domain.funding.model.ItemOption;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Mapper
 public interface FundingMapper {
 
     int insertFundingInfo(FundingInfo fundingInfo);
-    int insertOptionItem(@Param("fundingId") Long fundingId, @Param("optionList") ArrayList<ItemOption> optionList);
+    int insertOptionItem(@Param("fundingId") Long fundingId, @Param("optionList") List<ItemOption> optionList);
 }

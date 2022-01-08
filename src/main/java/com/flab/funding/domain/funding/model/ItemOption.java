@@ -21,7 +21,7 @@ public class ItemOption {
     private String itemName;
 
     // 아이템 가격
-    private BigDecimal itemPrice;
+    private int itemPrice;
 
     // 아이템 수량
     private int quantity;

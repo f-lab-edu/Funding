@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.flab.funding.domain.funding.model.FundingStatus.ING;
 
@@ -30,7 +30,6 @@ public class FundingMybatisTest {
     @DisplayName("SELLER의 신규 펀딩 옵션 아이템 insert query 테스트")
     void insertOptionItemTest() {
         Assertions.assertEquals(2, fundingMapper.insertOptionItem(1L, testOptionList()));
-
     }
 
     private FundingInfo testFundingInfo() {
@@ -40,25 +39,25 @@ public class FundingMybatisTest {
                 .fundingDesc("Description of Sample Funding Item")
                 .startDt(LocalDate.of(2022,1,4))
                 .targetDt(LocalDate.of(2022,1,31))
-                .targetPrice(BigDecimal.valueOf(1000000))
+                .targetPrice(1000000)
                 .fundingStatus(ING)
                 .build();
     }
 
-    private ArrayList<ItemOption> testOptionList() {
+    private List<ItemOption> testOptionList() {
         var item1 = ItemOption.builder()
                                 .id(1L)
                                 .itemName("Item Option1")
-                                .itemPrice(BigDecimal.valueOf(9900))
+                                .itemPrice(9900)
                                 .build();
 
         var item2 = ItemOption.builder()
                                 .id(2L)
                                 .itemName("Item Option2")
-                                .itemPrice(BigDecimal.valueOf(5000))
+                                .itemPrice(5000)
                                 .build();
 
-        ArrayList<ItemOption> optionList = new ArrayList<>();
+        List<ItemOption> optionList = new ArrayList<>();
         optionList.add(item1);
         optionList.add(item2);
 
