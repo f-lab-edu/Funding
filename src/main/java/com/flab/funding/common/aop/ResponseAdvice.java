@@ -4,15 +4,11 @@ import com.flab.funding.common.model.BasicResponse;
 import com.flab.funding.common.model.ErrorEntity;
 import com.flab.funding.common.utils.ResponseUtil;
 import org.springframework.core.MethodParameter;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-
-import java.util.Optional;
 
 @RestControllerAdvice
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
@@ -23,11 +19,9 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     }
 
     @Override
-    public ResponseEntity<BasicResponse<?>> beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    public BasicResponse<?> beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if(body instanceof ErrorEntity)
-            return ResponseEntity.status(((ErrorEntity) body).getStatus())
-                    .body(ResponseUtil.error((ErrorEntity) body));
-        return ResponseEntity.status(200)
-                .body(ResponseUtil.success(body));
+            return ResponseUtil.error((ErrorEntity) body);
+        return ResponseUtil.success(body);
     }
 }
