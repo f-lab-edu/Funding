@@ -1,20 +1,20 @@
 package com.flab.funding.domain.funding.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter
 @Builder
+@Entity
 public class FundingInfo {
 
     // pk
+    @Id @GeneratedValue
     private Long id;
 
     // 펀딩 타이틀
@@ -33,7 +33,8 @@ public class FundingInfo {
     private int targetPrice;
 
     // 펀딩 상품 선택 옵션리스트
-    private ArrayList<ItemOption> optionList;
+    @OneToMany(mappedBy="fundingInfo", cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ItemOption> optionList;
 
     // 펀딩 상태 (진행중 / 취소 / 성공 / 실패)
     private FundingStatus fundingStatus;

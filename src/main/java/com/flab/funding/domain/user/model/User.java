@@ -2,12 +2,19 @@ package com.flab.funding.domain.user.model;
 
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Builder
+@Entity
 public class User {
 
     // pk
+    @Id @GeneratedValue
     private Long id;
 
     // 회원 아이디
