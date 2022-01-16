@@ -5,7 +5,6 @@ import com.flab.funding.domain.user.infrastructure.Authentication;
 import com.flab.funding.domain.user.model.User;
 import com.flab.funding.domain.user.repository.UserJpaRepository;
 import com.flab.funding.domain.user.repository.UserMapper;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,7 @@ class UserLoginServiceTest {
   }
 
   @Test
-  @DisplayName("존재하는 ID로 로그긴을 시도하려고 할때, 응답으로 true를 받음#loginUservice.login")
+  @DisplayName("존재하는 ID로 로그긴을 시도하려고 할때, 정상처리됨#loginUservice.login")
   void testLoginUserIdAndPassword() {
     var TEST_USER_ID = "deveun";
     var TEST_USER_PASSWORD = "#123pas!!";
@@ -53,7 +52,7 @@ class UserLoginServiceTest {
 //    var loginUservice = new UserLoginService(authentication, userMapper);
     var loginUserService = new UserLoginService(authentication, userJpaRepo);
 
-    assertThat(loginUserService.login(TEST_USER_ID, TEST_USER_PASSWORD)).isTrue();
+    assertDoesNotThrow(()->loginUserService.login(TEST_USER_ID, TEST_USER_PASSWORD));
 
   }
 

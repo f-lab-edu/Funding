@@ -21,14 +21,14 @@ public class UserLoginService implements LoginService {
     private final UserJpaRepository userRepo;
 
     @Override
-    public boolean login(String loginId, String loginPw) {
+    public void login(String loginId, String loginPw) {
 
 //        Optional<User> loginUser = userMapper.selectByUserId(loginId);
-        Optional<User> loginUser = userRepo.findByUserId(loginId);
-        loginUser.map( x -> checkLoginPw(loginPw, x))
-                .orElseThrow(NoUserExistException::new);
-
-        return true;
+        User loginUser = userRepo.findByUserId(loginId).orElseThrow(NoUserExistException::new);
+        if(! checkLoginPw(loginPw, loginUser.getPassword())) {
+            throw new WrongPasswordException();
+        }
+        authentication.saveLoginAuthInfo(loginUser.getUserId(), loginUser.getUserName(), loginUser.getUserRole());
     }
 
     @Override
@@ -41,15 +41,12 @@ public class UserLoginService implements LoginService {
         return authentication.getLoginAuthInfo();
     }
 
-    private Optional<User> checkLoginPw(String loginPw, User loginUser) {
+    private boolean checkLoginPw(String loginPw, String usersPw) {
 
         //TODO: Encrypt password
         String encryptedPw = loginPw;
 
-        if (!encryptedPw.equals(loginUser.getPassword())) {
-            throw new WrongPasswordException();
-        }
-        return Optional.of(loginUser);
+        return encryptedPw.equals(usersPw);
     }
 
 

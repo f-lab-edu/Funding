@@ -5,7 +5,7 @@ import com.flab.funding.domain.user.model.LoginedUser;
 import java.util.Optional;
 
 public interface LoginService {
-    boolean login(String loginId, String loginPw);
+    void login(String loginId, String loginPw);
     void logout();
     Optional<LoginedUser> getLoginInfo();
 

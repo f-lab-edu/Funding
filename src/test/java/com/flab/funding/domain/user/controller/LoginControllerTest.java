@@ -17,8 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -59,7 +58,7 @@ public class LoginControllerTest {
         String jsonLoginReq = objectMapper.writeValueAsString(new LoginRequest("testId!!", "12345678"));
         String expectedJson = "{\"success\":false,\"response\":null,\"error\":{\"status\":400,\"errMessage\":\"해당 아이디가 존재하지 않습니다.\"}}";
 
-        when(loginService.login("testId!!", "12345678")).thenThrow(new NoUserExistException());
+        doThrow(new NoUserExistException()).when(loginService).login("testId!!", "12345678");
 
         mockMvc.perform(post("/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -75,7 +74,7 @@ public class LoginControllerTest {
 
         String jsonLoginReq = objectMapper.writeValueAsString(new LoginRequest("testId", "111"));
         String expectedJson = "{\"success\":false,\"response\":null,\"error\":{\"status\":400,\"errMessage\":\"패스워드가 올바르지 않습니다.\"}}";
-        when(loginService.login("testId", "111")).thenThrow(new WrongPasswordException());
+        doThrow(new WrongPasswordException()).when(loginService).login("testId", "111");
 
         mockMvc.perform(post("/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
