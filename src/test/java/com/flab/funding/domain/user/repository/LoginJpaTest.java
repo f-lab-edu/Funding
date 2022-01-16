@@ -8,11 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.util.Assert;
 
+import javax.security.auth.login.FailedLoginException;
 import java.util.Optional;
 
 @DataJpaTest
-@Sql({"classpath:/sql/h2-data.sql"})
+//@Sql({"classpath:/sql/h2-data.sql"})
 public class LoginJpaTest {
     
     @Autowired
@@ -20,7 +22,7 @@ public class LoginJpaTest {
 
     @DisplayName("로그인 아이디로 User조회 성공")
     @Test
-    void loginSuccessTest() {
+    void loginSuccessTest() throws FailedLoginException {
 
         //given
         Optional<User> expectUser = Optional.of(testUserData());
@@ -29,10 +31,13 @@ public class LoginJpaTest {
         Optional<User> actualUser = userJpaRepo.findByUserId("testId");
 
         //then
-        Assertions.assertEquals(expectUser.map(User::getId), actualUser.map(User::getId));
-        Assertions.assertEquals(expectUser.map(User::getUserId), actualUser.map(User::getUserId));
-        Assertions.assertEquals(expectUser.map(User::getUserName), actualUser.map(User::getUserName));
-        Assertions.assertEquals(expectUser.map(User::getUserRole), actualUser.map(User::getUserRole));
+        actualUser.orElseThrow(FailedLoginException::new);
+//        Assertions.assertAll(
+//                ()-> Assertions.assertEquals(expectUser.map(User::getId), actualUser.map(User::getId)),
+//                ()-> Assertions.assertEquals(expectUser.map(User::getUserId), actualUser.map(User::getUserId)),
+//                ()-> Assertions.assertEquals(expectUser.map(User::getUserName), actualUser.map(User::getUserName)),
+//                ()-> Assertions.assertEquals(expectUser.map(User::getUserRole), actualUser.map(User::getUserRole))
+//        );
     }
 
     private User testUserData() {
