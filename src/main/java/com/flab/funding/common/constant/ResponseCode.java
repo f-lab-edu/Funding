@@ -11,7 +11,8 @@ public enum ResponseCode {
     WRONG_PASSWORD(400, "패스워드가 올바르지 않습니다."),
     WRONG_CODE(500, "내부 코드 오류가 발생했습니다."),
     NO_FUND_EXIST(400, "해당 펀딩정보가 존재하지 않습니다."),
-    INTERNAL_SERVER_ERROR(500, "시스템 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
+    INTERNAL_SERVER_ERROR(500, "시스템 오류가 발생했습니다. 잠시 후에 다시 시도해주세요."),
+    NO_AUTH(403, "권한이 없습니다.");
 
     private int resCd;
     private String resMsg;
