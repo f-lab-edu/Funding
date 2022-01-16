@@ -3,6 +3,7 @@ package com.flab.funding.domain.user.service;
 import com.flab.funding.domain.user.exception.NoUserExistException;
 import com.flab.funding.domain.user.infrastructure.Authentication;
 import com.flab.funding.domain.user.model.User;
+import com.flab.funding.domain.user.repository.UserJpaRepository;
 import com.flab.funding.domain.user.repository.UserMapper;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,7 +22,8 @@ class UserLoginServiceTest {
   @Mock
   private Authentication authentication;
   @Mock
-  private UserMapper userMapper;
+//  private UserMapper userMapper;
+  private UserJpaRepository userJpaRepo;
 
   @Test
   @DisplayName("존재하지 않는 ID로 로그인을 시도하려고 할 때 예외가 발생#loginUservice.login")
@@ -29,12 +31,14 @@ class UserLoginServiceTest {
     var NO_EXIST_USER_ID = "noid";
     var NO_EXIST_USER_PASSWORD = "password";
 
-    when(userMapper.selectByUserId(NO_EXIST_USER_ID)).thenReturn(Optional.empty());
+//    when(userMapper.selectByUserId(NO_EXIST_USER_ID)).thenReturn(Optional.empty());
+    when(userJpaRepo.findByUserId(NO_EXIST_USER_ID)).thenReturn(Optional.empty());
 
-    var loginUservice = new UserLoginService(authentication, userMapper);
+//    var loginUservice = new UserLoginService(authentication, userMapper);
+    var loginUserService = new UserLoginService(authentication, userJpaRepo);
 
     assertThrows(NoUserExistException.class,
-        () -> loginUservice.login(NO_EXIST_USER_ID, NO_EXIST_USER_PASSWORD));
+        () -> loginUserService.login(NO_EXIST_USER_ID, NO_EXIST_USER_PASSWORD));
 
   }
 
@@ -43,11 +47,13 @@ class UserLoginServiceTest {
   void testLoginUserIdAndPassword() {
     var TEST_USER_ID = "deveun";
     var TEST_USER_PASSWORD = "#123pas!!";
-    when(userMapper.selectByUserId(TEST_USER_ID)).thenReturn(Optional.of(testUserData()));
+//    when(userMapper.selectByUserId(TEST_USER_ID)).thenReturn(Optional.of(testUserData()));
+    when(userJpaRepo.findByUserId(TEST_USER_ID)).thenReturn(Optional.of(testUserData()));
 
-    var loginUservice = new UserLoginService(authentication, userMapper);
+//    var loginUservice = new UserLoginService(authentication, userMapper);
+    var loginUserService = new UserLoginService(authentication, userJpaRepo);
 
-    assertThat(loginUservice.login(TEST_USER_ID, TEST_USER_PASSWORD)).isTrue();
+    assertThat(loginUserService.login(TEST_USER_ID, TEST_USER_PASSWORD)).isTrue();
 
   }
 

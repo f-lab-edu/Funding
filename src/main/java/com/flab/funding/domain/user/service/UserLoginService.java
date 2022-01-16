@@ -5,6 +5,7 @@ import com.flab.funding.domain.user.model.User;
 import com.flab.funding.domain.user.infrastructure.Authentication;
 import com.flab.funding.domain.user.exception.NoUserExistException;
 import com.flab.funding.domain.user.exception.WrongPasswordException;
+import com.flab.funding.domain.user.repository.UserJpaRepository;
 import com.flab.funding.domain.user.repository.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,14 @@ import java.util.Optional;
 public class UserLoginService implements LoginService {
 
     private final Authentication authentication;
-    private final UserMapper userMapper;
+//    private final UserMapper userMapper;
+    private final UserJpaRepository userRepo;
 
     @Override
     public boolean login(String loginId, String loginPw) {
 
-        Optional<User> loginUser = userMapper.selectByUserId(loginId);
+//        Optional<User> loginUser = userMapper.selectByUserId(loginId);
+        Optional<User> loginUser = userRepo.findByUserId(loginId);
         loginUser.map( x -> checkLoginPw(loginPw, x))
                 .orElseThrow(NoUserExistException::new);
 
