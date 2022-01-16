@@ -64,7 +64,7 @@ public class LoginControllerTest {
         mockMvc.perform(post("/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonLoginReq))
-                .andExpect(status().isOk())
+                .andExpect(status().is(400))
                 .andExpect(content().json(expectedJson))
                 .andDo(print());
     }
@@ -80,7 +80,7 @@ public class LoginControllerTest {
         mockMvc.perform(post("/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonLoginReq))
-                .andExpect(status().isOk())
+                .andExpect(status().is(400))
                 .andExpect(content().json(expectedJson))
                 .andDo(print());
     }

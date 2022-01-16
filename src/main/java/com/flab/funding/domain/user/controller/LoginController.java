@@ -5,11 +5,12 @@ import com.flab.funding.domain.user.model.LoginedUser;
 import com.flab.funding.domain.user.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -20,11 +21,11 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginedUser> login(@RequestBody LoginRequest loginReq) {
+    public Optional<LoginedUser> login(@RequestBody LoginRequest loginReq) {
 
         loginService.login(loginReq.getLoginId(), loginReq.getLoginPw());
 
-        return ResponseEntity.of(loginService.getLoginInfo());
+        return loginService.getLoginInfo();
     }
 
     @PostMapping("/logout")
