@@ -1,5 +1,6 @@
 package com.flab.funding.common.aop;
 
+import com.flab.funding.common.model.BasicResponse;
 import com.flab.funding.common.model.ErrorEntity;
 import com.flab.funding.common.utils.ResponseUtil;
 import org.springframework.core.MethodParameter;
@@ -18,7 +19,7 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    public BasicResponse<?> beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if(body instanceof ErrorEntity)
             return ResponseUtil.error((ErrorEntity) body);
         return ResponseUtil.success(body);
