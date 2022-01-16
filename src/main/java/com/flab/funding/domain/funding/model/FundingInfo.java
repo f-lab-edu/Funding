@@ -1,5 +1,6 @@
 package com.flab.funding.domain.funding.model;
 
+import com.flab.funding.domain.user.model.Seller;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +17,11 @@ public class FundingInfo {
     // pk
     @Id @GeneratedValue
     private Long id;
+
+    // 펀딩 생성자 (SELLER)
+    @OneToOne
+    @JoinColumn(name = "id")
+    private Seller seller;
 
     // 펀딩 타이틀
     private String fundingTitle;
