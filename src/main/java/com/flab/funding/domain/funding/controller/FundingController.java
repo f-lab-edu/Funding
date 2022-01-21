@@ -4,8 +4,10 @@ import com.flab.funding.domain.funding.model.FundingInfo;
 import com.flab.funding.domain.funding.service.OrdererService;
 import com.flab.funding.domain.funding.service.SellerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,9 +29,9 @@ public class FundingController {
     }
 
     @GetMapping("/seller/{id}")
-    public Page<FundingInfo> getSellerFundingList(@PathVariable Long id, @RequestParam int page) {
-        PageRequest pageReq = PageRequest.of(page, 10);
-        return sellerService.getFundingList(id, pageReq);
+    public Slice<FundingInfo> getSellerFundingList(@PathVariable Long id
+            , @PageableDefault(sort ="startDt",  direction = Sort.Direction.DESC) Pageable pageable) {
+        return sellerService.getFundingList(id, pageable);
     }
 
     @GetMapping("/seller/detail/{id}")
