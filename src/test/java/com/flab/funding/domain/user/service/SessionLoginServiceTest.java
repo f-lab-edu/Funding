@@ -18,6 +18,8 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 //@MybatisTest
 //@SpringBootTest
 //@Sql({"classpath:/h2-schema.sql", "classpath:/h2-data.sql"})
@@ -42,7 +44,7 @@ public class SessionLoginServiceTest {
     @DisplayName("로그인 성공")
     @Test
     void loginSuccessTest() {
-        Assertions.assertTrue(loginService.login("testId", "12345678"));
+        assertDoesNotThrow(()->loginService.login("testId", "12345678"));
     }
 
     @DisplayName("로그인 실패")
