@@ -25,10 +25,12 @@ public class UserLoginService implements LoginService {
 
 //        Optional<User> loginUser = userMapper.selectByUserId(loginId);
         User loginUser = userRepo.findByUserId(loginId).orElseThrow(NoUserExistException::new);
-        if(! checkLoginPw(loginPw, loginUser.getPassword())) {
+
+        if(loginPw.equals(loginUser.getPassword())) {
+            authentication.saveLoginAuthInfo(loginUser.getUserId(), loginUser.getUserName(), loginUser.getUserRole());
+        } else {
             throw new WrongPasswordException();
         }
-        authentication.saveLoginAuthInfo(loginUser.getUserId(), loginUser.getUserName(), loginUser.getUserRole());
     }
 
     @Override
@@ -40,14 +42,5 @@ public class UserLoginService implements LoginService {
     public Optional<LoginedUser> getLoginInfo() {
         return authentication.getLoginAuthInfo();
     }
-
-    private boolean checkLoginPw(String loginPw, String usersPw) {
-
-        //TODO: Encrypt password
-        String encryptedPw = loginPw;
-
-        return encryptedPw.equals(usersPw);
-    }
-
 
 }
