@@ -3,8 +3,8 @@ package com.flab.funding.domain.user.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.funding.domain.user.exception.NoUserExistException;
 import com.flab.funding.domain.user.exception.WrongPasswordException;
-import com.flab.funding.domain.user.model.LoginRequest;
-import com.flab.funding.domain.user.model.LoginedUser;
+import com.flab.funding.domain.user.model.dto.LoginReq;
+import com.flab.funding.domain.user.model.dto.LoginRes;
 import com.flab.funding.domain.user.model.UserRole;
 import com.flab.funding.domain.user.service.UserLoginService;
 import org.junit.jupiter.api.DisplayName;
@@ -38,10 +38,10 @@ public class LoginControllerTest {
     @Test
     void loginSuccessTest() throws Exception {
 
-        String jsonLoginReq = objectMapper.writeValueAsString(new LoginRequest("testId", "12345678"));
+        String jsonLoginReq = objectMapper.writeValueAsString(new LoginReq("testId", "12345678"));
         String expectedJson = "{\"success\":true,\"response\":{\"userId\":\"testId\",\"userName\":\"홍길동\",\"userRole\":\"ORDERER\"},\"error\":null}";
 
-        when(loginService.getLoginInfo()).thenReturn(Optional.of(new LoginedUser("testId", "홍길동", UserRole.ORDERER)));
+        when(loginService.getLoginInfo()).thenReturn(Optional.of(new LoginRes("testId", "홍길동", UserRole.ORDERER)));
 
         mockMvc.perform(post("/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -55,7 +55,7 @@ public class LoginControllerTest {
     @Test
     void loginFailTest() throws Exception {
 
-        String jsonLoginReq = objectMapper.writeValueAsString(new LoginRequest("testId!!", "12345678"));
+        String jsonLoginReq = objectMapper.writeValueAsString(new LoginReq("testId!!", "12345678"));
         String expectedJson = "{\"success\":false,\"response\":null,\"error\":{\"status\":400,\"errMessage\":\"해당 아이디가 존재하지 않습니다.\"}}";
 
         doThrow(new NoUserExistException()).when(loginService).login("testId!!", "12345678");
@@ -72,7 +72,7 @@ public class LoginControllerTest {
     @Test
     void loginFail2Test() throws Exception {
 
-        String jsonLoginReq = objectMapper.writeValueAsString(new LoginRequest("testId", "111"));
+        String jsonLoginReq = objectMapper.writeValueAsString(new LoginReq("testId", "111"));
         String expectedJson = "{\"success\":false,\"response\":null,\"error\":{\"status\":400,\"errMessage\":\"패스워드가 올바르지 않습니다.\"}}";
         doThrow(new WrongPasswordException()).when(loginService).login("testId", "111");
 

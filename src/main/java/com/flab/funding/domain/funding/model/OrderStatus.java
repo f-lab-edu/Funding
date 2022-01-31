@@ -5,7 +5,7 @@ import lombok.Getter;
 
 import java.util.Arrays;
 
-public enum FundingStatus {
+public enum OrderStatus {
     ING(1),
     CANCEL(2),
     SUCCESS(3),
@@ -14,13 +14,13 @@ public enum FundingStatus {
     @Getter
     private final int statusCode;
 
-    FundingStatus(int statusCode) {
+    OrderStatus(int statusCode) {
         this.statusCode = statusCode;
     }
 
-    public static FundingStatus getStatusName(int statusCode) {
+    public static OrderStatus getStatusName(int statusCode) {
 
-        return Arrays.stream(FundingStatus.values()).filter(x-> x.getStatusCode() == statusCode)
+        return Arrays.stream(OrderStatus.values()).filter(x-> x.getStatusCode() == statusCode)
                 .findFirst().orElseThrow(WrongFundingStatusException::new);
     }
 }

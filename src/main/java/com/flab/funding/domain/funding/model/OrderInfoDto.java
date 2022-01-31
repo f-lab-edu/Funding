@@ -1,4 +1,0 @@
-package com.flab.funding.domain.funding.model;
-
-public class OrderInfoDto {
-}

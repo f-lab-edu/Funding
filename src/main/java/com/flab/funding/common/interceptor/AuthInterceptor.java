@@ -3,7 +3,7 @@ package com.flab.funding.common.interceptor;
 import com.flab.funding.common.annotation.AuthRequired;
 import com.flab.funding.common.model.NoAuthException;
 import com.flab.funding.domain.user.infrastructure.Authentication;
-import com.flab.funding.domain.user.model.LoginedUser;
+import com.flab.funding.domain.user.model.dto.LoginRes;
 import com.flab.funding.domain.user.model.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,9 +13,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
-import java.util.Optional;
-
-import static org.apache.coyote.http11.Constants.a;
 
 @Component
 @RequiredArgsConstructor
@@ -32,7 +29,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         if(authRequired != null) {
             acceptRoleList = authRequired.acceptRole();
         }
-        LoginedUser loginedUser = authentication.getLoginAuthInfo().orElseThrow(NoAuthException::new);
+        LoginRes loginedUser = authentication.getLoginAuthInfo().orElseThrow(NoAuthException::new);
 
         boolean isMatched = Arrays.asList(acceptRoleList).contains(loginedUser.getUserRole());
         return isMatched;

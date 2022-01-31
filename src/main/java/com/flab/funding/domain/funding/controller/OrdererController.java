@@ -1,8 +1,8 @@
 package com.flab.funding.domain.funding.controller;
 
 import com.flab.funding.common.annotation.AuthRequired;
-import com.flab.funding.domain.funding.model.FundingOrderInfo;
-import com.flab.funding.domain.funding.model.OrderInfoDto;
+import com.flab.funding.domain.funding.model.dto.OrderReq;
+import com.flab.funding.domain.funding.model.dto.OrderRes;
 import com.flab.funding.domain.funding.service.OrdererService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -22,8 +22,8 @@ public class OrdererController {
 
     @AuthRequired(acceptRole = {ORDERER})
     @PostMapping("/order")
-    public FundingOrderInfo orderFunding(@RequestBody OrderInfoDto orderInfoDto) {
-        return ordererService.orderFunding(orderInfoDto);
+    public OrderRes orderFunding(@RequestBody OrderReq orderReq) {
+        return ordererService.orderFunding(orderReq);
     }
 
     @AuthRequired(acceptRole = {ORDERER})
@@ -34,14 +34,14 @@ public class OrdererController {
 
     @AuthRequired(acceptRole = {ORDERER})
     @GetMapping("/order/{id}")
-    public Slice<FundingOrderInfo> getOrderList(@PathVariable Long id
+    public Slice<OrderRes> getOrderList(@PathVariable Long id
             , @PageableDefault(sort ="cretDt",  direction = Sort.Direction.DESC) Pageable pageable) {
         return ordererService.getOrderList(id);
     }
 
     @AuthRequired(acceptRole = {ORDERER})
     @GetMapping("/order/detail/{id}")
-    public FundingOrderInfo getOrderDetail(@PathVariable Long id) {
+    public OrderRes getOrderDetail(@PathVariable Long id) {
         return ordererService.getOrderDetail(id);
     }
 }

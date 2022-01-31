@@ -1,4 +1,4 @@
-package com.flab.funding.domain.user.model;
+package com.flab.funding.domain.user.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class LoginRequest {
+public class LoginReq {
 
     // 로그인 아이디
     private String loginId;
