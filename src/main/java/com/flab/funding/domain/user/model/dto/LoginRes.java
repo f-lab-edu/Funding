@@ -1,5 +1,6 @@
-package com.flab.funding.domain.user.model;
+package com.flab.funding.domain.user.model.dto;
 
+import com.flab.funding.domain.user.model.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @Builder
-public class LoginedUser {
+public class LoginRes {
 
     // 회원 아이디
     private String userId;

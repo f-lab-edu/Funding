@@ -1,7 +1,7 @@
 package com.flab.funding.domain.funding.service;
 
 import com.flab.funding.domain.funding.exception.NoFundingExistException;
-import com.flab.funding.domain.funding.model.FundingInfo;
+import com.flab.funding.domain.funding.model.Funding;
 import com.flab.funding.domain.funding.repository.FundingJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,7 @@ public class SellerService {
 
     private final FundingJpaRepository fundingJpaRepo;
 
-    public FundingInfo addFunding(FundingInfo fundingInfo) {
+    public Funding addFunding(Funding fundingInfo) {
         return fundingJpaRepo.save(fundingInfo);
     }
 
@@ -24,13 +24,13 @@ public class SellerService {
         fundingJpaRepo.deleteById(id);
     }
 
-    public Slice<FundingInfo> getFundingList(Long id, Pageable pageable) {
+    public Slice<Funding> getFundingList(Long id, Pageable pageable) {
         return fundingJpaRepo.findBySeller_Id(id, pageable);
     }
 
-    public FundingInfo getFundingDetail(Long id) {
+    public Funding getFundingDetail(Long id) {
 
-        Optional<FundingInfo> fundingInfo = fundingJpaRepo.findById(id);
+        Optional<Funding> fundingInfo = fundingJpaRepo.findById(id);
 
         return fundingInfo.orElseThrow(NoFundingExistException::new);
     }

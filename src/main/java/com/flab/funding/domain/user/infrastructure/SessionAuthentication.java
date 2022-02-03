@@ -1,6 +1,6 @@
 package com.flab.funding.domain.user.infrastructure;
 
-import com.flab.funding.domain.user.model.LoginedUser;
+import com.flab.funding.domain.user.model.dto.LoginRes;
 import com.flab.funding.domain.user.model.UserRole;
 import com.flab.funding.common.constant.SessionConstant;
 import lombok.RequiredArgsConstructor;
@@ -45,9 +45,9 @@ public class SessionAuthentication implements Authentication {
     }
 
     @Override
-    public Optional<LoginedUser> getLoginAuthInfo() {
+    public Optional<LoginRes> getLoginAuthInfo() {
         if(checkLoginAuthInfo()) {
-            return Optional.of(new LoginedUser((String) session.getAttribute(SessionConstant.SESSION_LOGIN_ID)
+            return Optional.of(new LoginRes((String) session.getAttribute(SessionConstant.SESSION_LOGIN_ID)
                     , (String) session.getAttribute(SessionConstant.SESSION_NAME)
                     , (UserRole) session.getAttribute(SessionConstant.SESSION_ROLE)));
         }

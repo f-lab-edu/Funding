@@ -8,24 +8,24 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Builder
 @Entity
-@NoArgsConstructor
-public class ItemOption {
+public class OrderDetail {
 
     @Id @GeneratedValue
-    private Long id;
+    private long id;
 
     @ManyToOne
-    @JoinColumn(name = "item_id")
-    private Item item;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    private String name;
+    @OneToOne
+    @JoinColumn(name = "option_id")
+    private ItemOption itemOption;
 
-    private int totalCount;
+    private int unitPrice;
 
-    private int remainCount;
-
-    private int price;
+    private int count;
 }

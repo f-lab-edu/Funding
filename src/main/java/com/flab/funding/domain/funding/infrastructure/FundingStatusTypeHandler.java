@@ -1,6 +1,6 @@
 package com.flab.funding.domain.funding.infrastructure;
 
-import com.flab.funding.domain.funding.model.FundingStatus;
+import com.flab.funding.domain.funding.model.OrderStatus;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
 import org.apache.ibatis.type.TypeHandler;
@@ -10,29 +10,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@MappedTypes(FundingStatus.class)
-public class FundingStatusTypeHandler implements TypeHandler<FundingStatus> {
+@MappedTypes(OrderStatus.class)
+public class FundingStatusTypeHandler implements TypeHandler<OrderStatus> {
     @Override
-    public void setParameter(PreparedStatement preparedStatement, int i, FundingStatus fundingStatus, JdbcType jdbcType) throws SQLException {
+    public void setParameter(PreparedStatement preparedStatement, int i, OrderStatus fundingStatus, JdbcType jdbcType) throws SQLException {
         preparedStatement.setInt(i, fundingStatus.getStatusCode());
     }
 
     @Override
-    public FundingStatus getResult(ResultSet resultSet, String s) throws SQLException {
+    public OrderStatus getResult(ResultSet resultSet, String s) throws SQLException {
         final var statusCode = resultSet.getInt(s);
-        return FundingStatus.getStatusName(statusCode);
+        return OrderStatus.getStatusName(statusCode);
     }
 
     @Override
-    public FundingStatus getResult(ResultSet resultSet, int i) throws SQLException {
+    public OrderStatus getResult(ResultSet resultSet, int i) throws SQLException {
         final var statusCode = resultSet.getInt(i);
-        return FundingStatus.getStatusName(statusCode);
+        return OrderStatus.getStatusName(statusCode);
     }
 
     @Override
-    public FundingStatus getResult(CallableStatement callableStatement, int i) throws SQLException {
+    public OrderStatus getResult(CallableStatement callableStatement, int i) throws SQLException {
         final var statusCode = callableStatement.getInt(i);
-        return FundingStatus.getStatusName(statusCode);
+        return OrderStatus.getStatusName(statusCode);
     }
 
 

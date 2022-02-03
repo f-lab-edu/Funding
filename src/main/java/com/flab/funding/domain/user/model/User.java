@@ -1,10 +1,11 @@
 package com.flab.funding.domain.user.model;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,18 +14,20 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
-    // pk
     @Id @GeneratedValue
-    private Long id;
+    private long id;
 
     // 회원 아이디
+    @NotNull
     private String userId;
 
     // 회원 비밀번호
+    @NotNull
     private String password;
 
     // 회원 이름
-    private String userName;
+    @NotNull
+    private String name;
 
     // 회원 이메일
     private String email;
@@ -32,18 +35,11 @@ public class User {
     // 회원 연락처
     private String phone;
 
-    // 회원 주소 - 시
-    private String si;
-
-    // 회원 주소 - 구
-    private String gu;
-
-    // 회원 주소 - 동
-    private String dong;
-
-    // 회원 주소 - 상세주소
-    private String address;
+    // 회원 주소
+    @OneToMany(mappedBy = "user", fetch= FetchType.LAZY)
+    private List<Address> address = new ArrayList<> ();
 
     // 회원 역할 (판매자, 구매자)
+    @NotNull
     private UserRole userRole;
 }

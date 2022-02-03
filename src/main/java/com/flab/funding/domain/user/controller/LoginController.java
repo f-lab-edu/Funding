@@ -1,7 +1,7 @@
 package com.flab.funding.domain.user.controller;
 
-import com.flab.funding.domain.user.model.LoginRequest;
-import com.flab.funding.domain.user.model.LoginedUser;
+import com.flab.funding.domain.user.model.dto.LoginReq;
+import com.flab.funding.domain.user.model.dto.LoginRes;
 import com.flab.funding.domain.user.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/login")
-    public Optional<LoginedUser> login(@RequestBody LoginRequest loginReq) {
+    public Optional<LoginRes> login(@RequestBody LoginReq loginReq) {
 
         loginService.login(loginReq.getLoginId(), loginReq.getLoginPw());
 

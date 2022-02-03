@@ -1,12 +1,11 @@
 package com.flab.funding.domain.user.service;
 
-import com.flab.funding.domain.user.model.LoginedUser;
+import com.flab.funding.domain.user.model.dto.LoginRes;
 import com.flab.funding.domain.user.model.User;
 import com.flab.funding.domain.user.infrastructure.Authentication;
 import com.flab.funding.domain.user.exception.NoUserExistException;
 import com.flab.funding.domain.user.exception.WrongPasswordException;
 import com.flab.funding.domain.user.repository.UserJpaRepository;
-import com.flab.funding.domain.user.repository.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class UserLoginService implements LoginService {
         User loginUser = userRepo.findByUserId(loginId).orElseThrow(NoUserExistException::new);
 
         if(loginPw.equals(loginUser.getPassword())) {
-            authentication.saveLoginAuthInfo(loginUser.getUserId(), loginUser.getUserName(), loginUser.getUserRole());
+            authentication.saveLoginAuthInfo(loginUser.getUserId(), loginUser.getName(), loginUser.getUserRole());
         } else {
             throw new WrongPasswordException();
         }
@@ -39,7 +38,7 @@ public class UserLoginService implements LoginService {
     }
 
     @Override
-    public Optional<LoginedUser> getLoginInfo() {
+    public Optional<LoginRes> getLoginInfo() {
         return authentication.getLoginAuthInfo();
     }
 

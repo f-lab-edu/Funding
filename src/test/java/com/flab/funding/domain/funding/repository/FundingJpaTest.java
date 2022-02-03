@@ -1,6 +1,6 @@
 package com.flab.funding.domain.funding.repository;
 
-import com.flab.funding.domain.funding.model.FundingInfo;
+import com.flab.funding.domain.funding.model.Funding;
 import com.flab.funding.domain.funding.model.ItemOption;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.flab.funding.domain.funding.model.FundingStatus.ING;
+import static com.flab.funding.domain.funding.model.OrderStatus.ING;
 
 @DataJpaTest
 public class FundingJpaTest {
@@ -25,10 +25,10 @@ public class FundingJpaTest {
     void insertFundingInfoTest() {
 
         // given
-        FundingInfo insertFundingInfo = testFundingInfo();
+        Funding insertFundingInfo = testFundingInfo();
 
         // when
-        FundingInfo resFundingInfo = fundingJpaRepo.save(testFundingInfo());
+        Funding resFundingInfo = fundingJpaRepo.save(testFundingInfo());
 
         // then
         Assertions.assertEquals(insertFundingInfo.getFundingTitle(), resFundingInfo.getFundingTitle());
@@ -36,8 +36,8 @@ public class FundingJpaTest {
 
     }
 
-    private FundingInfo testFundingInfo() {
-        return FundingInfo.builder()
+    private Funding testFundingInfo() {
+        return Funding.builder()
 //                .id(1L)
                 .fundingTitle("Funding Item1")
                 .fundingDesc("Description of Sample Funding Item")
